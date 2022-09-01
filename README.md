@@ -1,4 +1,4 @@
-# TTT X-Wing Overlay
+# Yet Another Stream Overlay for X-Wing (YASO)
 
 ## Setup
 
