@@ -207,26 +207,8 @@ export class PlayerListComponent implements OnInit {
           }
 
           switch (pilot.id) {
-            case "dineeellberger-nabooroyaln1starfighter":
-              pilot.id = "dineeellberger";
-              break;
-            case "ricolie-nabooroyaln1starfighter":
-              pilot.id = "ricolie";
-              break;
             case "padmeamidala-nabooroyaln1starfighter":
               pilot.id = "padmeamidala";
-              break;
-            case "anakinskywalkerywing":
-              pilot.id = "anakinskywalker-btlbywing";
-              break;
-            case "oddballywing":
-              pilot.id = "oddball-btlbywing";
-              break;
-            case "alexsandrkallus":
-              pilot.id = "alexandrkallus";
-              break;
-            case "tpusk":
-              pilot.id = "tapusk";
               break;
             default:
               break;
