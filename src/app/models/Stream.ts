@@ -64,6 +64,7 @@ export interface Timer{
     minutesRemaining?:number;
     secondsRemaining?:number;
     running?:boolean;
+    countup?:boolean;
     paused?:boolean;
     target?:number;
     size?:number;

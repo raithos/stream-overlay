@@ -3,7 +3,11 @@
     <div class="col-4">
         <div class="input-group input-group-sm">
             <input [(ngModel)]="timer.duration" type="number" name="duration" class="form-control">
-            <span class="input-group-addon" id="basic-addon2">Minutes</span>
+            <span class="input-group-addon" id="basic-addon2">&nbsp;Minutes</span>
+        </div>
+        <div class="input-group input-group-sm">
+            <input type="checkbox" [checked]="timer.countup" (change)="toggleOption('countup')" name="countup" class="ml-2">
+            <span class="input-group-addon" id="basic-addon3">&nbsp;Count Up</span>
         </div>
     </div>
 </div>

@@ -32,8 +32,7 @@ export class PlaybackCardsStandaloneComponent implements OnInit {
         duration:75,
         minutesRemaining:75,
         secondsRemaining:0,
-        running:false
-      }
+        running:false      }
   };
   constructor(
     public streamService:StreamService,

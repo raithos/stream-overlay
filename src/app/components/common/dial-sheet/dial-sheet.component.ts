@@ -130,12 +130,10 @@ export class DialSheetComponent implements OnInit {
 
   getShipIcon(ship){
     switch (ship.xws) {
-      case "scavengedyt1300":
-        return "modifiedyt1300lightfreighter";
       case "tieininterceptor":
         return "tieinterceptor";
-      case "upsilonclassshuttle":
-        return "upsilonclasscommandshuttle";
+      case "delta7baethersprite":
+        return "delta7aethersprite";
       default:
         return ship.xws;
     }

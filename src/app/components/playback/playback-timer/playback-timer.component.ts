@@ -19,6 +19,9 @@ export class PlaybackTimerComponent implements OnInit, OnChanges {
 
   @Input() size: number = 3;
 
+  toggleOption(option:string) {
+    this.timer[option] = !this.timer[option];
+  }
 
   constructor() { }
 
@@ -57,8 +60,13 @@ export class PlaybackTimerComponent implements OnInit, OnChanges {
       this.timer.minutesRemaining = 0;
       this.timer.secondsRemaining = 0;
     }else{
-      this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
-      this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      if(this.timer.countup){
+        this.timer.minutesRemaining = this.timer.duration - (Math.ceil((target.getTime() - now.getTime())/60000));
+        this.timer.secondsRemaining = 60 - (Math.ceil(((target.getTime() - now.getTime()) % 60000) / 1000));
+      }else{
+        this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
+        this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      }
     }
   }
 

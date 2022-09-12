@@ -33,6 +33,10 @@ export class TimerControlSlimComponent implements OnInit {
     return this.padLeft(this.timer.minutesRemaining <= 0 ? '0' : this.timer.minutesRemaining.toString(), '0', this.timer.minutesRemaining >= 100 ? 3 : 2) + ':' + this.padLeft(this.timer.secondsRemaining <= 0 ? '0' : this.timer.secondsRemaining.toString(), '0', 2);
   }
 
+  toggleOption(option:string) {
+    this.timer[option] = !this.timer[option];
+  }
+
   calcTargetTime(withUpdate:boolean) {
     let now = new Date();
     let target = new Date();
@@ -51,8 +55,13 @@ export class TimerControlSlimComponent implements OnInit {
       this.timer.secondsRemaining = 0;
       this.updateParent();
     }else{
-      this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
-      this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      if(this.timer.countup){
+        this.timer.minutesRemaining = this.timer.duration - (Math.ceil((target.getTime() - now.getTime())/60000));
+        this.timer.secondsRemaining = 60 - (Math.ceil(((target.getTime() - now.getTime()) % 60000) / 1000));
+      }else{
+        this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
+        this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      }
     }
     if(withUpdate) this.updateParent();
   }

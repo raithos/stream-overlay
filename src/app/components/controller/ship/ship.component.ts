@@ -141,12 +141,10 @@ export class ShipComponent implements OnInit {
 
   getShipIcon(ship){
     switch (ship) {
-      case "scavengedyt1300":
-        return "modifiedyt1300lightfreighter";
       case "tieininterceptor":
         return "tieinterceptor";
-      case "upsilonclassshuttle":
-        return "upsilonclasscommandshuttle";
+      case "delta7baethersprite":
+        return "delta7aethersprite";
       default:
         return ship;
     }

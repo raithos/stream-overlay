@@ -24,6 +24,9 @@ export class TimerControlComponent implements OnInit {
     });
   }
 
+  toggleOption(option:string) {
+    this.timer[option] = !this.timer[option];
+  }
 
   padLeft(text:string, padChar:string, size:number): string {
     return (String(padChar).repeat(size) + text).substr( (size * -1), size) ;
@@ -51,8 +54,13 @@ export class TimerControlComponent implements OnInit {
       this.timer.secondsRemaining = 0;
       this.updateParent();
     }else{
-      this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
-      this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      if(this.timer.countup){
+        this.timer.minutesRemaining = this.timer.duration - (Math.ceil((target.getTime() - now.getTime())/60000));
+        this.timer.secondsRemaining = 60 - (Math.ceil(((target.getTime() - now.getTime()) % 60000) / 1000));
+      }else{
+        this.timer.minutesRemaining = Math.floor((target.getTime() - now.getTime())/60000);
+        this.timer.secondsRemaining = Math.floor(((target.getTime() - now.getTime()) % 60000) / 1000);
+      }
     }
     if(withUpdate) this.updateParent();
   }
