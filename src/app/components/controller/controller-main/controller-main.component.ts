@@ -194,6 +194,15 @@ export class ControllerMainComponent implements OnInit {
     this.updateStreamToParent();
   }
 
+  resetGame(){
+    this.stream.players[0].objectivePoints = 0;
+    this.stream.players[0].pointsLost = 0;
+    this.stream.players[1].objectivePoints = 0;
+    this.stream.players[1].pointsLost = 0;
+    this.stream.options.turnNumber = 0;
+    this.updateStreamToParent();
+  }
+
   updatePlayer(updatedPlayer:Player, index:number) {
     this.stream.players[index] = updatedPlayer;
     this.updateStreamToParent();
