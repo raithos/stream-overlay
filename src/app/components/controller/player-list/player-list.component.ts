@@ -187,6 +187,12 @@ export class PlayerListComponent implements OnInit {
       }
       
       try {
+        var nonUniqueCount = 0;
+        var shipColor = "#FFFFFF";
+        var multipleShips = false;
+        var currentShip = 0;
+        var shipCheck = 0;
+
         for (let pilot of x.pilots) {
           //caters for mismatch between external xws and xwing-data2
           switch (pilot.ship) {
@@ -216,137 +222,181 @@ export class PlayerListComponent implements OnInit {
 
           const shipName = pilot.ship;
 
-            let data = this.pilotdata[faction][shipName];
+          let data = this.pilotdata[faction][shipName];
+        
+          const singleShipData = data;
+
+          //console.log(pilot);
           
-            const singleShipData = data;
+          const singlePilotData = data.pilots[pilot.id];
 
-            //console.log(pilot);
-            
-            const singlePilotData = data.pilots[pilot.id];
+          //console.log(singlePilotData);
 
-            //console.log(singlePilotData);
-            
-            if(singlePilotData) {            
-              let newShip:Ship = {
-                name: singleShipData.name,
-                pilot: singlePilotData,
-                pilotskill: singlePilotData.initiative,
-                points: (pilot.points != null) ? pilot.points : 0,
-                hasLostHalfPoints: false,
-                hull: singleShipData.stats.find(element=>{ if (element.type === "hull") return element; }).value,
-                shields: (singleShipData.stats.find(element=>{ if (element.type === "shields") return element; }) === undefined ? 0 : singleShipData.stats.find(element=>{ if (element.type === "shields") return element; }).value),
-                upgrades: [],
-                color: "#FFFFFF",
-                xws: shipName,
-                enabled:true,
-                base: singleShipData.size,
-                crits: new Array<string>(),
-                faction: singleShipData.faction,
-                dial: singleShipData.dial
+          shipColor = "#FFFFFF";
+                    
+          if(shipName) {
+            //check to see if other ship exists
+            multipleShips = false;
+            shipCheck = 0;
+            for (let p of x.pilots) {
+              if ((p.ship == shipName) && (currentShip != shipCheck)){
+                multipleShips = true;
+                break;
+              }
+              shipCheck++;
+            }
+            currentShip++;
+
+            if (multipleShips == true){
+              switch (nonUniqueCount) {
+                case 0:
+                  shipColor = "#f20000";
+                  break;
+                case 1:
+                  shipColor = "#f7f109";
+                  break;
+                case 2:
+                  shipColor = "#007800";
+                  break;
+                case 3:
+                  shipColor = "#0100e4";
+                  break;
+                case 4:
+                  shipColor = "#e903ae";
+                  break;
+                case 5:
+                  shipColor = "#7e3b0e";
+                  break;
+                case 6:
+                  shipColor = "#fbf3f0";
+                  break;
+                case 7:
+                  shipColor = "#7a7770";
+                  break;
+              }
+              nonUniqueCount++;
+            }
+
+            let newShip:Ship = {
+              name: singleShipData.name,
+              pilot: singlePilotData,
+              pilotskill: singlePilotData.initiative,
+              points: (pilot.points != null) ? pilot.points : 0,
+              hasLostHalfPoints: false,
+              hull: singleShipData.stats.find(element=>{ if (element.type === "hull") return element; }).value,
+              shields: (singleShipData.stats.find(element=>{ if (element.type === "shields") return element; }) === undefined ? 0 : singleShipData.stats.find(element=>{ if (element.type === "shields") return element; }).value),
+              upgrades: [],
+              color: shipColor,
+              xws: shipName,
+              enabled:true,
+              base: singleShipData.size,
+              crits: new Array<string>(),
+              faction: singleShipData.faction,
+              dial: singleShipData.dial
+            }
+
+            if(singlePilotData.force !== undefined) {
+              newShip.force = singlePilotData.force.value
+            }
+
+            //iterate upgrade types
+            for(let upgradeType in pilot.upgrades) {
+              // Caters for "mod"->"modification" mapping
+              let upgradeTypeFixed = upgradeType;
+              switch (upgradeType) {
+                case "mod":
+                  upgradeTypeFixed = "modification";
+                  break;
+                case "amd":
+                  upgradeTypeFixed = "astromech";
+                  break;
+                case "ept":
+                  upgradeTypeFixed = "talent";
+                  break;
+                case "force":
+                case "forcepower":
+                  upgradeTypeFixed = "force-power";
+                  break;
+                case "tacticalrelay":
+                  upgradeTypeFixed = "tactical-relay";
+                  break;
+                default:
+                  break;
               }
 
-              if(singlePilotData.force !== undefined) {
-                newShip.force = singlePilotData.force.value
-              }
+              //iterate upgrades in type
+              for(let upgradeName in pilot.upgrades[upgradeType]) {
+                
+                //fix for phantom title
+                let upgradeNameFixed = pilot.upgrades[upgradeType][upgradeName];
 
-              //iterate upgrade types
-              for(let upgradeType in pilot.upgrades) {
-                // Caters for "mod"->"modification" mapping
-                let upgradeTypeFixed = upgradeType;
-                switch (upgradeType) {
-                  case "mod":
-                    upgradeTypeFixed = "modification";
-                    break;
-                  case "amd":
-                    upgradeTypeFixed = "astromech";
-                    break;
-                  case "ept":
-                    upgradeTypeFixed = "talent";
-                    break;
-                  case "force":
-                  case "forcepower":
-                    upgradeTypeFixed = "force-power";
-                    break;
-                  case "tacticalrelay":
-                    upgradeTypeFixed = "tactical-relay";
-                    break;
-                  default:
-                    break;
-                }
-
-                //iterate upgrades in type
-                for(let upgradeName in pilot.upgrades[upgradeType]) {
-                  
-                  //fix for phantom title
-                  let upgradeNameFixed = pilot.upgrades[upgradeType][upgradeName];
-
-                  switch (upgradeTypeFixed) {
-                    case "title":
+                switch (upgradeTypeFixed) {
+                  case "title":
+                    switch (upgradeNameFixed) {
+                      case "phantomsheathipede":
+                        upgradeNameFixed = "phantom";
+                        break;
+                    }
+                  case "crew":
                       switch (upgradeNameFixed) {
-                        case "phantomsheathipede":
-                          upgradeNameFixed = "phantom";
+                        case "leiaorganaresistance":
+                          upgradeNameFixed = "leiaorgana-resistance";
                           break;
-                      }
-                    case "crew":
-                        switch (upgradeNameFixed) {
-                          case "leiaorganaresistance":
-                            upgradeNameFixed = "leiaorgana-resistance";
-                            break;
-                          case "k2s0":
-                            upgradeNameFixed = "k2so";
-                            break;                        }
-                  }
-                                  
-                  if(upgradeTypeFixed !== "hardpoint"){
-                    let upgrade = this.upgradedata[upgradeTypeFixed].find(u => u.xws === upgradeNameFixed);               
-                    let newUpgrade:Upgrade = {
-                      name: upgrade.name, 
-                      enabled: true, 
-                      points: 0, 
-                      type:upgrade.sides[0].type, 
-                      xws:upgrade.xws,
-                    }
-                    if(upgrade.sides[0].image !== undefined){
-                      newUpgrade.image = upgrade.sides[0].image;
-                    }else{
-                      newUpgrade.image = "";
-                    }
-                    if(upgrade.sides[0].charges !== undefined){
-                      newUpgrade.charges = upgrade.sides[0].charges.value;
-                    }
-                                        
-                    if(upgrade.sides[0].grants !== undefined) {
-                      for(let grant of upgrade.sides[0].grants) {
-                        //console.log(grant);
-                        //console.log(grant['type']);
-                        if(grant['type'] == 'stat'){
-                          switch (grant['value']) {
-                            case 'hull':
-                              //console.log('grants hull');
-                              newShip.hull = newShip.hull + grant['amount'];
-                              break;
-                            case 'shields':
-                              //console.log('grants shields');
-                              newShip.shields = newShip.shields + grant['amount'];
-                              break;
-                            default:
-                              break;
-                          }
-                        }         
-                      }
-                    }
-                    newShip.upgrades.push(newUpgrade);
-                  }
+                        case "k2s0":
+                          upgradeNameFixed = "k2so";
+                          break;                        }
                 }
-              };
-              newShip.starthull = newShip.hull;
-              newShip.startshields = newShip.shields;
-              //console.log(newShip);
+                                
+                if(upgradeTypeFixed !== "hardpoint"){
+                  let upgrade = this.upgradedata[upgradeTypeFixed].find(u => u.xws === upgradeNameFixed);               
+                  let newUpgrade:Upgrade = {
+                    name: upgrade.name, 
+                    enabled: true, 
+                    points: 0, 
+                    type:upgrade.sides[0].type, 
+                    xws:upgrade.xws,
+                  }
+                  if(upgrade.sides[0].image !== undefined){
+                    newUpgrade.image = upgrade.sides[0].image;
+                  }else{
+                    newUpgrade.image = "";
+                  }
+                  if(upgrade.sides[0].charges !== undefined){
+                    newUpgrade.charges = upgrade.sides[0].charges.value;
+                  }
+                                      
+                  if(upgrade.sides[0].grants !== undefined) {
+                    for(let grant of upgrade.sides[0].grants) {
+                      //console.log(grant);
+                      //console.log(grant['type']);
+                      if(grant['type'] == 'stat'){
+                        switch (grant['value']) {
+                          case 'hull':
+                            //console.log('grants hull');
+                            newShip.hull = newShip.hull + grant['amount'];
+                            break;
+                          case 'shields':
+                            //console.log('grants shields');
+                            newShip.shields = newShip.shields + grant['amount'];
+                            break;
+                          default:
+                            break;
+                        }
+                      }         
+                    }
+                  }
+                  newShip.upgrades.push(newUpgrade);
+                }
+              }
+            };
+            newShip.starthull = newShip.hull;
+            newShip.startshields = newShip.shields;
+            //console.log(newShip);
 
-              
-              this.player.ships.push(newShip);
-              this.calcPointsLost(); 
-              this.updateParent();
+            
+            this.player.ships.push(newShip);
+            this.calcPointsLost(); 
+            this.updateParent();
           } 
         }
       }
