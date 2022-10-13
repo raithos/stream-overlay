@@ -44,6 +44,7 @@ export class AddStreamComponent implements OnInit {
       showShipPoints:true,
       healthAsIcons:false,
       playerNameFontSize: 2.5,
+      pointsFontSize: 3,
       shipNameFontSize: 1.25,
       shipStatFontSize: 1.5,
       shipUpgradeFontSize: 1,

@@ -24,6 +24,7 @@ export class PlaybackMainComponent implements OnInit {
       {
         dropShadow:true,
         shipIcons:true,
+        pointsFontSize: 3,
         showTimer:true
       },
       timer: {

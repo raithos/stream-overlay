@@ -87,6 +87,7 @@ export interface Options{
     shipUpgradeFontSize?:number,
     shipStatFontSize?:number,
     playerNameFontSize?:number,
+    pointsFontSize?:number,
     cardSize?:number,
     showForceCharges?:boolean,
     showUpgradeCharges?:boolean,

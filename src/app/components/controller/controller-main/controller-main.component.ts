@@ -49,6 +49,7 @@ export class ControllerMainComponent implements OnInit {
       shipUpgradeFontSize:2,
       shipStatFontSize:3,
       playerNameFontSize:4,
+      pointsFontSize:3,
       cardSize:3,
       shipPSLocation:"stats",
       scoringHalfHealthShips:"Half"
@@ -168,6 +169,10 @@ export class ControllerMainComponent implements OnInit {
   }
 
   setTimerSize(){
+    this.updateStreamToParent();
+  }
+
+  setPointsSize(){
     this.updateStreamToParent();
   }
 
