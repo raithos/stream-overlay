@@ -47,6 +47,8 @@ shieldArray = [];
         return "tieinterceptor";
       case "delta7baethersprite":
         return "delta7aethersprite";
+      case "upsilonclassshuttle":
+        return "upsilonclasscommandshuttle";
       default:
         return ship;
     }
