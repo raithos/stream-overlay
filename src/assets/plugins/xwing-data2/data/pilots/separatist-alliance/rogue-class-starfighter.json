@@ -23,8 +23,8 @@
     "5FW",
     "5KR"
   ],
-  "dialCodes": [],
-  "faction": "Scum and Villainy",
+  "dialCodes": ["RCS"],
+  "faction": "Separatist Alliance",
   "stats": [
     { "arc": "Front Arc", "type": "attack", "value": 2 },
     { "type": "agility", "value": 2 },
@@ -224,7 +224,6 @@
       "cost": 5,
       "loadout": 19,
       "xws": "ig102",
-      "slots": [],
       "slots": [
         "Cannon",
         "Cannon",

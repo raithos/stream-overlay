@@ -678,7 +678,7 @@
         "artwork": "???"
       }
     ],
-    "cost": { "value": 10 },
+    "cost": { "value": 5 },
     "restrictions": [{ "ships": ["btanr2ywing"] }, { "standardized": true }],
     "standard": true,
     "extended": true,
@@ -731,6 +731,23 @@
     ],
     "cost": { "value": 0 },
     "restrictions": [{ "ships": ["tiewiwhispermodifiedinterceptor"] }],
+    "standard": true,
+    "extended": true,
+    "epic": true
+  },
+  {
+    "name": "L3-37's Programming",
+    "limited": 1,
+    "xws": "l337sprogramming-battleofyavin",
+    "sides": [
+      {
+        "title": "L3-37's Programming",
+        "type": "Configuration",
+        "ability": "If you are not shielded, decrease the difficulty of your bank ([Bank Left] and [Bank Right]) maneuvers.",
+        "slots": ["Configuration"]
+      }
+    ],
+    "standardLoadoutOnly": true,
     "standard": true,
     "extended": true,
     "epic": true

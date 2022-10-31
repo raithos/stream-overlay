@@ -1669,6 +1669,7 @@
     ],
     "cost": { "value": 6 },
     "limited": 1,
+    "restrictions": [{ "factions": ["Galactic Republic"] }],
     "standard": true,
     "extended": true,
     "epic": true,
@@ -2843,6 +2844,23 @@
       { "factions": ["Separatist Alliance"] },
       { "sizes": ["Medium", "Large", "Huge"] }
     ],
+    "standard": true,
+    "extended": true,
+    "epic": true
+  },
+  {
+    "name": "Chewbacca",
+    "limited": 1,
+    "xws": "chewbacca-battleofyavin",
+    "sides": [
+      {
+        "title": "Chewbacca",
+        "type": "Crew",
+        "ability": "After you perform an [Evade] action, you may gain 1 focus token.",
+        "slots": ["Crew"]
+      }
+    ],
+    "standardLoadoutOnly": true,
     "standard": true,
     "extended": true,
     "epic": true
