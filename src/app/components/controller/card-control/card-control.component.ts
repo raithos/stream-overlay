@@ -41,8 +41,6 @@ export class CardControlComponent implements OnInit {
     let tempDamageDeckTFA: Array<NgOption> = [];
     let tempConditionOptions: Array<NgOption> = [];
 
-    const cardImagesPath:String = "/assets/cards";
-
     //load in xwing-data2 manifest
     this.http.get('assets/plugins/xwing-data2/data/manifest.json').subscribe(data => {
       this.manifest = data;
@@ -63,11 +61,10 @@ export class CardControlComponent implements OnInit {
         this.http.get(shipFile).subscribe(data => {
           this.pilotdata = data;
           this.pilotdata.pilots.map(p => {
-            //if(p.image !== undefined){
-              this.myOptions = this.myOptions.concat({
-                label: 'Pilot: '+p.name+'('+this.pilotdata.name+')',
-                value: (cardImagesPath+"/pilots/"+p.xws+".png")
-              });
+            this.myOptions = this.myOptions.concat({
+              label: 'Pilot: '+p.name+'('+this.pilotdata.name+')',
+              value: p.image
+            });
             //}
           });
         });
@@ -92,15 +89,15 @@ export class CardControlComponent implements OnInit {
           this.upgradedata.map(upgrade => {
             if(upgrade.sides !== undefined){
               upgrade.sides.map(side => {
-                if(this.myOptions.some(function(el){ return el.value === cardImagesPath+"/upgrades/"+upgrade.xws+".png"})){
+                if(this.myOptions.some(function(el){ return el.value === upgrade.image})){
                   this.myOptions = this.myOptions.concat({
                     label: 'Upgrade: '+side.title+' ('+side.type+')',
-                    value: (cardImagesPath+"/upgrades/"+upgrade.xws+"-sideb.png")
+                    value: upgrade.image
                   });
                 }else{
                   this.myOptions = this.myOptions.concat({
                     label: 'Upgrade: '+side.title+' ('+side.type+')',
-                    value: (cardImagesPath+"/upgrades/"+upgrade.xws+".png")
+                    value: upgrade.image
                   });
                 }
               });

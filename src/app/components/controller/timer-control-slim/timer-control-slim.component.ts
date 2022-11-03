@@ -41,7 +41,7 @@ export class TimerControlSlimComponent implements OnInit {
     let now = new Date();
     let target = new Date();
     if(this.timer.countup){
-      target.setTime(now.getTime() + (((this.timer.duration - this.timer.minutesRemaining) * 60000) + ((60 - this.timer.secondsRemaining) * 1000)));
+      target.setTime(now.getTime() + ((((this.timer.duration - 1) - this.timer.minutesRemaining) * 60000) + ((60 - this.timer.secondsRemaining) * 1000)));
     }else{
       target.setTime(now.getTime() + (this.timer.minutesRemaining * 60000) + (this.timer.secondsRemaining * 1000));
     }
@@ -55,8 +55,13 @@ export class TimerControlSlimComponent implements OnInit {
     let target = new Date();
     target.setTime(this.timer.target);
     if(now.getTime() > target.getTime()){
-      this.timer.minutesRemaining = 0;
-      this.timer.secondsRemaining = 0;
+      if(this.timer.countup){
+        this.timer.minutesRemaining = this.timer.duration;
+        this.timer.secondsRemaining = 0;
+      }else{
+        this.timer.minutesRemaining = 0;
+        this.timer.secondsRemaining = 0;
+      }
       this.updateParent();
     }else{
       if(this.timer.countup){
@@ -99,6 +104,7 @@ export class TimerControlSlimComponent implements OnInit {
     this.timer.paused = false;
     if(this.timer.countup){
       this.timer.minutesRemaining = 0;
+      this.timer.secondsRemaining = 0;
     }
     else{
       this.timer.minutesRemaining = this.timer.duration;

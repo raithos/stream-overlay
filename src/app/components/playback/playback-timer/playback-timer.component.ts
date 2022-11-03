@@ -57,8 +57,13 @@ export class PlaybackTimerComponent implements OnInit, OnChanges {
     let target = new Date();
     target.setTime(this.timer.target);
     if(now.getTime() > target.getTime()){
-      this.timer.minutesRemaining = 0;
-      this.timer.secondsRemaining = 0;
+      if(this.timer.countup){
+        this.timer.minutesRemaining = this.timer.duration;
+        this.timer.secondsRemaining = 0;
+      }else{
+        this.timer.minutesRemaining = 0;
+        this.timer.secondsRemaining = 0;
+      }
     }else{
       if(this.timer.countup){
         this.timer.minutesRemaining = this.timer.duration - (Math.ceil((target.getTime() - now.getTime())/60000));

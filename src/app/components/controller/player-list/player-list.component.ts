@@ -109,10 +109,10 @@ export class PlayerListComponent implements OnInit {
 
   updateCards(ship:Ship){
     this.cards = [];
-    this.cards.push("/assets/cards/pilots/"+ship.pilot.xws+".png");
+    this.cards.push(ship.pilot.image);
     if(ship.upgrades){
       ship.upgrades.forEach(u => {
-        this.cards.push("/assets/cards/upgrades/"+u.xws+".png");
+        this.cards.push(u.image);
       });
     }
     this.updatedCards.emit(this.cards);
