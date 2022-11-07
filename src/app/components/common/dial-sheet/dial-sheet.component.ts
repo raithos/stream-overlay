@@ -22,8 +22,84 @@ export class DialSheetComponent implements OnInit {
   ngOnChanges() {
     
     this.maneuvers = [];
-    this.dial = this.ship['dial'];
-    
+    let yasbDial = this.ship.dial;
+    let convertDial = [];
+    for(let speed = 0; speed < yasbDial.length; speed++){
+      for (let turn = 0; turn < yasbDial[0].length; turn++){
+        let turnTranslate = "";
+        let speedTranslate = speed;
+        switch (turn){
+          case 0:
+            turnTranslate = "T"
+            break;
+          case 1:
+            turnTranslate = "B"
+            break;
+          case 2:
+            if (speed == 0){
+              turnTranslate = "O"
+            }else{
+              turnTranslate = "F"
+            }
+            break;
+          case 3:
+            turnTranslate = "N"
+            break;
+          case 4:
+            turnTranslate = "Y"
+            break;
+          case 5:
+            turnTranslate = "K"
+            break;
+          case 6:
+            turnTranslate = "L"
+            break;
+          case 7:
+            turnTranslate = "P"
+            break;
+          case 8:
+            turnTranslate = "E"
+            break;
+          case 9:
+            turnTranslate = "R"
+            break;
+          case 10:
+            turnTranslate = "A"
+            speedTranslate = -speed;
+            break;
+          case 11:
+            turnTranslate = "S"
+            speedTranslate = -speed;
+            break;
+          case 12:
+            turnTranslate = "D"
+            speedTranslate = -speed;
+            break;
+          default:
+            break;
+        }
+        switch (yasbDial[speed][turn]) {
+          case 0:
+            break;
+          case 1:
+            convertDial.push(speedTranslate+turnTranslate+"B")
+            break;
+          case 2:
+            convertDial.push(speedTranslate+turnTranslate+"W")
+            break;
+          case 3:
+            convertDial.push(speedTranslate+turnTranslate+"R")
+            break;
+          case 4:
+            convertDial.push(speed+turnTranslate+"P")
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    this.dial = convertDial;
+
     this.columns = [
       {"col":"a", "use":false},
       {"col":"b", "use":false},

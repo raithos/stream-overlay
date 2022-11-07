@@ -258,7 +258,6 @@ export class PlayerListComponent implements OnInit {
 
           let data = this.pilotdata[faction][shipName];
           const singleShipData = this.yasbships[shipName];
-          const singleShipDataOld = data;
 
           const singlePilotData = this.yasbpilots[pilot.name];
           const singlePilotDataOld = data.pilots[pilot.id];
@@ -323,8 +322,7 @@ export class PlayerListComponent implements OnInit {
               base: (singleShipData.base != null) ? singleShipData.base : "Small",
               crits: new Array<string>(),
               faction: faction,
-              dial: singleShipDataOld.dial
-              //dial: singleShipData.maneuvers
+              dial: singleShipData.maneuvers
             }
             
             if((singlePilotDataOld !== undefined) && (singlePilotDataOld.image !== undefined)){

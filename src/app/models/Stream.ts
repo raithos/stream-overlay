@@ -42,7 +42,7 @@ export interface Ship{
     crits?:string[];
     faction?:string;
     force?:number;
-    dial?:string[];
+    dial?:number[][];
     
 }
 
