@@ -21,6 +21,7 @@ export interface Pilot{
     image?:string;
     faction?:string;
     xws?:string;
+    upgrades?:string[];
 }
 
 export interface Ship{
