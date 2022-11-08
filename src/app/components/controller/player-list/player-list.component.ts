@@ -329,18 +329,27 @@ export class PlayerListComponent implements OnInit {
               newShip.pilot.image = singlePilotDataOld.image;
             }
 
-            if(singlePilotData.force !== undefined) {
-              newShip.force = singlePilotData.force.value
-            }
-
             if (singlePilotData.upgrades !== undefined){
               for(let upgradeName of singlePilotData.upgrades){
                 let yasbData = this.yasbupgrades[upgradeName.canonicalize()];
+                //fix type problems
+                let upgradeTypeFixed;
+                switch (yasbData.slot){
+                  case "Force":
+                    upgradeTypeFixed = "forcepower";
+                    break;
+                  case "Tactical Relay":
+                    upgradeTypeFixed = "tactical-relay";
+                    break;
+                  default:
+                    upgradeTypeFixed = yasbData.slot;
+                    break;
+                }
                 let newUpgrade:Upgrade = {
                   name: upgradeName, 
                   enabled: true, 
                   points: 0, 
-                  type: yasbData.slot, 
+                  type: upgradeTypeFixed, 
                   xws: upgradeName.xws ? upgradeName.xws : upgradeName.canonicalize(),
                 }
                 if(yasbData.charge !== undefined){
@@ -352,15 +361,13 @@ export class PlayerListComponent implements OnInit {
               //iterate upgrade types
               for(let upgradeType in pilot.upgrades) {
                 // Caters for "mod"->"modification" mapping
-                let upgradeTypeFixed = upgradeType;
+                let upgradeTypeFixed;
                 switch (upgradeType) {
-                  case "forcepower":
-                    upgradeTypeFixed = "force-power";
-                    break;
                   case "tacticalrelay":
                     upgradeTypeFixed = "tactical-relay";
                     break;
                   default:
+                    upgradeTypeFixed = upgradeType;
                     break;
                 }
 
@@ -371,16 +378,15 @@ export class PlayerListComponent implements OnInit {
                   let upgradeNameFixed = pilot.upgrades[upgradeType][upgradeName];
 
                   if(upgradeTypeFixed !== "hardpoint"){
-                    // let upgrade = this.upgradedata[upgradeTypeFixed].find(u => u.xws === upgradeNameFixed);
-                    let upgrade = this.yasbupgrades[upgradeNameFixed.canonicalize()]
+                    let upgrade = this.yasbupgrades[upgradeNameFixed]
                     let newUpgrade:Upgrade = {
                       name: upgrade.name, 
                       enabled: true, 
                       points: 0, 
-                      type: upgrade.slot, 
+                      type: upgradeTypeFixed.canonicalize(), 
                       xws: upgrade.xws ? upgrade.xws : upgrade.name.canonicalize()
                     }
-                    let upgradeold = this.upgradedata[upgrade.slot.canonicalize()].find(u => u.xws === newUpgrade.xws)
+                    let upgradeold = this.upgradedata[upgradeTypeFixed].find(u => u.xws === newUpgrade.xws)
                     if(upgradeold.sides[0].image !== undefined){
                       newUpgrade.image = upgradeold.sides[0].image;
                     }else{
@@ -395,8 +401,7 @@ export class PlayerListComponent implements OnInit {
                         hull:newShip.hull,
                         shields:newShip.shields,
                         actions:[],
-                        force:0
-
+                        maneuvers:[]
                       };
                       upgrade.modifier_func(statCheck);
                       newShip.hull = statCheck.hull;
