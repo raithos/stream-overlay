@@ -1,13 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 //import { StreamService } from '../../../services/stream.service';
 import { Options, Player, Ship, Upgrade } from '../../../models/Stream'
-import { log } from 'util';
-
-declare var $:any;
-declare var xws: any;
 
 declare var exportObj: any;
 declare var require: any;
@@ -255,12 +250,8 @@ export class PlayerListComponent implements OnInit {
           }
 
           const shipName = pilot.ship;
-
-          let data = this.pilotdata[faction][shipName];
           const singleShipData = this.yasbships[shipName];
-
           const singlePilotData = this.yasbpilots[pilot.name];
-          const singlePilotDataOld = data.pilots[pilot.id];
 
           shipColor = "#FFFFFF";
                     
@@ -329,9 +320,7 @@ export class PlayerListComponent implements OnInit {
             //Remove brackets for ship names
             singlePilotData.name = singlePilotData.name.split(" (")[0];
             
-            if((singlePilotDataOld !== undefined) && (singlePilotDataOld.image !== undefined)){
-              newShip.pilot.image = singlePilotDataOld.image;
-            }
+            newShip.pilot.image = "https://infinitearenas.com/xw2/images/pilots/" + (pilot.name) + ".png"
 
             if (singlePilotData.upgrades !== undefined){
               for(let upgradeName of singlePilotData.upgrades){
@@ -391,14 +380,9 @@ export class PlayerListComponent implements OnInit {
                       enabled: true, 
                       points: 0, 
                       type: upgradeTypeFixed.canonicalize(), 
-                      xws: upgrade.xws ? upgrade.xws : upgrade.name.canonicalize()
+                      xws: upgradeNameFixed
                     }
-                    let upgradeold = this.upgradedata[upgradeTypeFixed].find(u => u.xws === newUpgrade.xws)
-                    if(upgradeold.sides[0].image !== undefined){
-                      newUpgrade.image = upgradeold.sides[0].image;
-                    }else{
-                      newUpgrade.image = "";
-                    }
+                    newUpgrade.image = "https://infinitearenas.com/xw2/images/upgrades/" + (upgradeNameFixed) + ".png"
                     if(upgrade.charge !== undefined){
                       newUpgrade.charges = upgrade.charge;
                     }
