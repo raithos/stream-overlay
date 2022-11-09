@@ -15,7 +15,7 @@
                 <span *ngIf="options.showPS && options.shipPSLocation=='stats'" [style.font-size]="options.shipStatFontSize + 'rem'" class="h3 ps-text mr-1 ship-initiative">{{ship.pilotskill}}</span>
                 <i [style.font-size]="options.shipStatFontSize + 'rem'" class='xwing-miniatures-font xwing-miniatures-font-hull hull-icon'></i> <span [style.font-size]="options.shipStatFontSize + 'rem'" class="h3 mr-1 ship-hull-value">{{ship.hull}}</span>
                 <i [style.font-size]="options.shipStatFontSize + 'rem'" class='xwing-miniatures-font xwing-miniatures-font-shield shield-icon'></i> <span [style.font-size]="options.shipStatFontSize + 'rem'" class="h3 ship-shield-value">{{ship.shields}}</span>
-                <span *ngIf="ship.force>=0 && options.showForceCharges" class="ship-force-icon">
+                <span *ngIf="ship.force>0 && options.showForceCharges" class="ship-force-icon">
                     <i [style.font-size]="options.shipStatFontSize + 'rem'" class='xwing-miniatures-font xwing-miniatures-font-forcecharge forcecharge-icon'></i> <span [style.font-size]="options.shipStatFontSize + 'rem'" class="h3 ship-force-value">{{ship.force}}</span>
                 </span>
             </ng-container>

@@ -51,7 +51,7 @@ export class ShipComponent implements OnInit {
         if(this.ship.pilotskill > 0) this.ship.pilotskill--;
         break;
       case 'force':
-        if(this.ship.force > 0) this.ship.force--;
+        if(this.ship.pilot.force > 0) this.ship.force--;
         break;
       default:
         break;

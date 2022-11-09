@@ -318,12 +318,16 @@ export class PlayerListComponent implements OnInit {
               upgrades: [],
               color: shipColor,
               xws: shipName,
+              force: singlePilotData.force ? singlePilotData.force : 0,
               enabled:true,
               base: (singleShipData.base != null) ? singleShipData.base : "Small",
               crits: new Array<string>(),
               faction: faction,
               dial: singleShipData.maneuvers
             }
+
+            //Remove brackets for ship names
+            singlePilotData.name = singlePilotData.name.split(" (")[0];
             
             if((singlePilotDataOld !== undefined) && (singlePilotDataOld.image !== undefined)){
               newShip.pilot.image = singlePilotDataOld.image;
@@ -352,6 +356,9 @@ export class PlayerListComponent implements OnInit {
                   type: upgradeTypeFixed, 
                   xws: upgradeName.xws ? upgradeName.xws : upgradeName.canonicalize(),
                 }
+                //Remove brackets for upgrade names
+                newUpgrade.name = newUpgrade.name.split(" (")[0];
+
                 if(yasbData.charge !== undefined){
                   newUpgrade.charges = yasbData.charge;
                 }
@@ -401,11 +408,13 @@ export class PlayerListComponent implements OnInit {
                         hull:newShip.hull,
                         shields:newShip.shields,
                         actions:[],
+                        force:newShip.force,
                         maneuvers:[]
                       };
                       upgrade.modifier_func(statCheck);
                       newShip.hull = statCheck.hull;
                       newShip.shields = statCheck.shields;
+                      newShip.force = statCheck.force;
                     }
                     newShip.upgrades.push(newUpgrade);
                   }

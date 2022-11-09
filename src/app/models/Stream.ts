@@ -16,6 +16,8 @@ export interface Pilot{
     ship?:string;
     skill?:number;
     points?:number;
+    force?:number;
+    canonical_name?:string;
     slots?:string[];
     text?:string;
     image?:string;
