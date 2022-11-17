@@ -28,6 +28,7 @@ export class PlayerListComponent implements OnInit {
   yasbpilots:any;
   yasbships:any;
   yasbupgrades:any;
+  yasbupgradesxws:any;
   pilots:any;
   pilotdata:any;
   shipdata:any;
@@ -70,7 +71,7 @@ export class PlayerListComponent implements OnInit {
       }
     }
 
-    this.yasbupgrades = {};
+    this.yasbupgradesxws = {};
     for (let _n = 0, _len1 = this.yasbData.upgradesById.length; _n < _len1; _n++) {
       var upgrade_data;
       upgrade_data = this.yasbData.upgradesById[_n];
@@ -78,7 +79,16 @@ export class PlayerListComponent implements OnInit {
         if (upgrade_data.xws == null) {
           upgrade_data.xws = upgrade_data.name.canonicalize();
         }
-        this.yasbupgrades[upgrade_data.xws] = upgrade_data;
+        this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
+      }
+    }
+
+    this.yasbupgrades = {};
+    for (let _n = 0, _len1 = this.yasbData.upgradesById.length; _n < _len1; _n++) {
+      var upgrade_data;
+      upgrade_data = this.yasbData.upgradesById[_n];
+      if (upgrade_data.skip == null) {
+        this.yasbupgrades[upgrade_data.name] = upgrade_data;
       }
     }
 
@@ -228,14 +238,11 @@ export class PlayerListComponent implements OnInit {
             case "scavengedyt1300lightfreighter":
               pilot.ship = "scavengedyt1300";
               break;
-            case "mg100starfortresssf17":
-              pilot.ship = "mg100starfortress";
-              break;
             case "tieinterceptor":
               pilot.ship = "tieininterceptor";
               break;
-            case "upsilonclasscommandshuttle":
-              pilot.ship = "upsilonclassshuttle";
+            case "upsilonclassshuttle":
+              pilot.ship = "upsilonclasscommandshuttle";
               break;
             default:
               break;
@@ -324,7 +331,7 @@ export class PlayerListComponent implements OnInit {
 
             if (singlePilotData.upgrades !== undefined){
               for(let upgradeName of singlePilotData.upgrades){
-                let yasbData = this.yasbupgrades[upgradeName.canonicalize()];
+                let yasbData = this.yasbupgrades[upgradeName];
                 //fix type problems
                 let upgradeTypeFixed;
                 switch (yasbData.slot){
@@ -343,7 +350,7 @@ export class PlayerListComponent implements OnInit {
                   enabled: true, 
                   points: 0, 
                   type: upgradeTypeFixed, 
-                  xws: upgradeName.xws ? upgradeName.xws : upgradeName.canonicalize(),
+                  xws: yasbData.xws ? yasbData.xws : upgradeName.canonicalize(),
                 }
                 //Remove brackets for upgrade names
                 newUpgrade.name = newUpgrade.name.split(" (")[0];
@@ -374,7 +381,7 @@ export class PlayerListComponent implements OnInit {
                   let upgradeNameFixed = pilot.upgrades[upgradeType][upgradeName];
 
                   if(upgradeTypeFixed !== "hardpoint"){
-                    let upgrade = this.yasbupgrades[upgradeNameFixed]
+                    let upgrade = this.yasbupgradesxws[upgradeNameFixed]
                     let newUpgrade:Upgrade = {
                       name: upgrade.name, 
                       enabled: true, 

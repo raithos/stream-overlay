@@ -30,9 +30,9 @@ shieldArray = [];
         return "config";
       case "ept":
         return "talent";
-      case "force power":
+      case "force-power":
         return "forcepower";
-      case "tactical relay":
+      case "tactical-relay":
         return "tacticalrelay";
     
       default:
