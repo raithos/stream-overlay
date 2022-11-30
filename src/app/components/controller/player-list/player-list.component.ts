@@ -8,6 +8,7 @@ declare var exportObj: any;
 declare var require: any;
 
 import * as manifest from 'assets/plugins/xwing-data2/data/manifest.json';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-player-list',
@@ -66,6 +67,12 @@ export class PlayerListComponent implements OnInit {
       if (pilot_data.skip == null) {
         if (pilot_data.xws == null) {
           pilot_data.xws = pilot_data.name.canonicalize();
+        }
+        if (!isNumber(pilot_data.skill)){
+          pilot_data.skill = 0;
+        }
+        if (pilot_data.restriction_func != undefined){
+          pilot_data.restriction_func = "";
         }
         this.yasbpilots[pilot_data.xws] = pilot_data;
       }
@@ -322,6 +329,20 @@ export class PlayerListComponent implements OnInit {
               crits: new Array<string>(),
               faction: faction,
               dial: singleShipData.maneuvers
+            }
+
+            //Natash Pup exception
+            if (newShip.pilot.name == "Nashtah Pup"){
+              for (let p of x.pilots){
+                for (let u in p.upgrades){
+                  if (u == "title"){
+                    if (p.upgrades[u][0] == "houndstooth"){
+                      newShip.pilotskill = this.yasbpilots[p.name].skill;
+                      break;
+                    }
+                  }
+                } 
+              }
             }
 
             //Remove brackets for ship names
