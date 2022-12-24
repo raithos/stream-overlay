@@ -73,9 +73,17 @@
     </form>
   </div>
   <div class="card-body">
+    XWS:
     <form  #f="ngForm" (ngSubmit)="onSubmitXws(f)">
       <textarea [(ngModel)]="player.xws" name="xws" class="form-control" placeholder="Paste XWS list here">{{player.xws}}</textarea>
       <button *ngIf="player.ships?.length > 0" (click)="cancelXWSEdit()" class="btn btn-sm btn-secondary">Cancel</button>
+      <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+    </form>
+    <br>
+    YASB:
+    <form  #g="ngForm" (ngSubmit)="onSubmitYASB(g)">
+      <textarea [(ngModel)]="player.yasb" name="yasb" class="form-control" placeholder="Paste YASB link here">{{player.yasb}}</textarea>
+      <button *ngIf="player.ships?.length > 0" (click)="cancelYASBEdit()" class="btn btn-sm btn-secondary">Cancel</button>
       <button type="submit" class="btn btn-sm btn-primary">Submit</button>
     </form>
     <div *ngIf="xwsErrorDisplay" class="alert alert-danger mt-3" role="alert">

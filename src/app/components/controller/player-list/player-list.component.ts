@@ -37,6 +37,7 @@ export class PlayerListComponent implements OnInit {
   upgrades:any;
   upgradedata:any;
   editXWS:boolean = false;
+  editYASB:boolean = false;
   showPlayerNameEditInput:boolean = false;
   showPlayerSubTextEditInput:boolean = false;
   xwsErrorDisplay:string;
@@ -449,41 +450,23 @@ export class PlayerListComponent implements OnInit {
 
   onSubmitYASB({value, valid}){
     try {
-
-      /*if (value.slice(0,3) === "http"){
-        var matches, re,
-        __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-        re = __indexOf.call(value, "Z") >= 0 ? /^v(\d+)Z(.*)/ : /^v(\d+)!(.*)/;
-        matches = re.exec(value);
-        var game_type_abbrev, desired_points, serialized_ships, _ref1, _ref;
-        _ref1 = (_ref = matches[2].split('Z'), g = _ref[0], p = _ref[1], s = _ref[2], _ref), game_type_abbrev = _ref1[0], desired_points = _ref1[1], serialized_ships = _ref1[2];
-
-        for (let i = 0; i < serialized_ships.length; i++){
-          var xwsnew = this.yasbData.pilotsById[serialized_ships[i]]
-          var xwsentry = {
-            id: xwsnew.xws,
-            name: xwsnew.xws,
-            points: xwsnew.points,
-            ship: xwsnew.ship.canonicalize()
-          }
-          // this.player.xws["pilots"][i] = xwsentry;
-          console.log(xwsentry.name);
-        }
-      }*/
-
-      this.player.xws = value.xws;
+      var xwsoutput = value.yasb.serialtoxws();
+      this.player.yasb = value.yasb;
       this.editXWS = false;
-      this.buildShipList(this.player.xws);
+      this.editYASB = false;
+      this.buildShipList(xwsoutput);
       this.updateParent();
+      console.log(xwsoutput);
     }
     catch (e) {
-      this.xwsErrorDisplay = "Error Loading XWS";
+      this.xwsErrorDisplay = "Error Loading YASB Link";
     }
   }
 
   onSubmitXws({value, valid}){
     try {
       this.player.xws = value.xws;
+      this.editYASB = false;
       this.editXWS = false;
       this.buildShipList(this.player.xws);
       this.updateParent();
@@ -495,6 +478,12 @@ export class PlayerListComponent implements OnInit {
 
   cancelXWSEdit(){
     this.editXWS = false;
+    this.editYASB = false;
+  }
+
+  cancelYASBEdit(){
+    this.editXWS = false;
+    this.editYASB = false;
   }
 
   closeXwsErrorDisplay(){

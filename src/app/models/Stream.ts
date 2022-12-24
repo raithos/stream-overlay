@@ -53,6 +53,7 @@ export interface Player{
     name?:string;
     subText?:string;
     xws?:string;
+    yasb?:string;
     ships?:Ship[];
     dice?:string[];
     listPoints?:number;
