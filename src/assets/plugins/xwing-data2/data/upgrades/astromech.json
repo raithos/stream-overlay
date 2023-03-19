@@ -1,11 +1,11 @@
 [
   {
-    "name": "\"Chopper\"",
+    "name": "“Chopper”",
     "limited": 1,
     "xws": "chopper",
     "sides": [
       {
-        "title": "\"Chopper\"",
+        "title": "“Chopper”",
         "type": "Astromech",
         "ability": "Action: Spend 1 non-recurring [Charge] from another equipped upgrade to recover 1 shield. Action: Spend 2 shields to recover 1 non-recurring [Charge] on an equipped upgrade.",
         "slots": ["Astromech"],
@@ -21,12 +21,12 @@
     "epic": true
   },
   {
-    "name": "\"Genius\"",
+    "name": "“Genius”",
     "limited": 1,
     "xws": "genius",
     "sides": [
       {
-        "title": "\"Genius\"",
+        "title": "“Genius”",
         "type": "Astromech",
         "ability": "After you fully execute a maneuver, if you have not dropped or launched a device this round, you may drop 1 bomb.",
         "image": "https://squadbuilder.fantasyflightgames.com/card_images/Card_Upgrade_143.png",
@@ -528,7 +528,7 @@
     "epic": true,
     "sides": [
       {
-        "ability": "During the End Phase, you may spend 1 [Charge] and 1 shield to remove 1 red token. During the End Phase, if you have no active shields, you may spend 2 [Charge] to recover 1 shield and gain 1 deplete token.",
+        "ability": "During the End Phase, you may spend 1 [Charge] and 1 [Shield] to remove 1 red token. During the End Phase, if you have no active [Shield], you may spend 2 [Charge] to recover 1 [Shield] and gain 1 deplete token.",
         "title": "R2-D2",
         "ffg": 720,
         "type": "Astromech",
@@ -770,6 +770,24 @@
         "title": "Targeting Astromech",
         "type": "Astromech",
         "slots": ["Astromech"]
+      }
+    ],
+    "standard": true,
+    "extended": true,
+    "epic": true,
+    "standardLoadoutOnly": true
+  },
+  {
+    "name": "R4-P17",
+    "limited": 1,
+    "xws": "r4p17-siegeofcoruscant",
+    "sides": [
+      {
+        "ability": "When you would be dealt a damage card, if you are not defending, you may spend 1 [Charge] and gain 1 strain to discard it instead.",
+        "title": "Targeting Astromech",
+        "type": "Astromech",
+        "slots": ["Astromech"],
+        "charges": { "value": 2, "recovers": 0 }
       }
     ],
     "standard": true,

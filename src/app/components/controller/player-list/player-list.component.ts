@@ -349,9 +349,8 @@ export class PlayerListComponent implements OnInit {
             //Remove brackets for ship names
             singlePilotData.name = singlePilotData.name.split(" (")[0];
             
-            newShip.pilot.image = "https://infinitearenas.com/xw2/images/pilots/" + (pilot.name) + ".png"
-
             if (singlePilotData.upgrades !== undefined){
+              newShip.pilot.image = "https://infinitearenas.com/xw2/images/pilots/" + (pilot.name) + ".png"
               for(let upgradeName of singlePilotData.upgrades){
                 let yasbData = this.yasbupgrades[upgradeName];
                 //fix type problems
@@ -383,6 +382,8 @@ export class PlayerListComponent implements OnInit {
                 newShip.upgrades.push(newUpgrade);
               }
             }else{
+              newShip.pilot.image = "https://infinitearenas.com/xw2/quickbuilds/pilots/" + (pilot.name) + ".png"
+
               //iterate upgrade types
               for(let upgradeType in pilot.upgrades) {
                 // Caters for "mod"->"modification" mapping
