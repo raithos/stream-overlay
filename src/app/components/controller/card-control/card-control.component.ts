@@ -92,12 +92,12 @@ export class CardControlComponent implements OnInit {
                 if(this.myOptions.some(function(el){ return el.value === upgrade.image})){
                   this.myOptions = this.myOptions.concat({
                     label: 'Upgrade: '+side.title+' ('+side.type+')',
-                    value: upgrade.image
+                    value: "https://infinitearenas.com/xw2/images/upgrades/"+upgrade.xws+".png"
                   });
                 }else{
                   this.myOptions = this.myOptions.concat({
                     label: 'Upgrade: '+side.title+' ('+side.type+')',
-                    value: upgrade.image
+                    value: "https://infinitearenas.com/xw2/images/upgrades/"+upgrade.xws+".png"
                   });
                 }
               });
