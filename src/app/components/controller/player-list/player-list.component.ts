@@ -62,12 +62,25 @@ export class PlayerListComponent implements OnInit {
     }
 
     this.yasbpilots = {};
+    var name_parse;
+    var pilot_data;
     for (let _n = 0, _len1 = this.yasbData.pilotsById.length; _n < _len1; _n++) {
-      var pilot_data;
       pilot_data = this.yasbData.pilotsById[_n];
       if (pilot_data.skip == null) {
         if (pilot_data.xws == null) {
-          pilot_data.xws = pilot_data.name.canonicalize();
+          name_parse =  pilot_data.name.split("(")
+
+          if (name_parse[1] == null){
+            pilot_data.xws = pilot_data.name.canonicalize();
+          } else {
+            pilot_data.xws = name_parse[0].canonicalize();
+
+            if (pilot_data.xwsaddon != null) {
+              pilot_data.xws += "-" + pilot_data.xwsaddon;
+            } else {
+              pilot_data.xws += "-" + pilot_data.ship.canonicalize();
+            }
+          }
         }
         if (!isNumber(pilot_data.skill)){
           pilot_data.skill = 0;
@@ -80,14 +93,24 @@ export class PlayerListComponent implements OnInit {
     }
 
     this.yasbupgradesxws = {};
+    var upgrade_data;
     for (let _n = 0, _len1 = this.yasbData.upgradesById.length; _n < _len1; _n++) {
-      var upgrade_data;
       upgrade_data = this.yasbData.upgradesById[_n];
       if (upgrade_data.skip == null) {
-        if (upgrade_data.xws == null) {
+        name_parse =  upgrade_data.name.split("(")
+
+        if (name_parse[1] == null){
           upgrade_data.xws = upgrade_data.name.canonicalize();
+        } else {
+          upgrade_data.xws = name_parse[0].canonicalize();
+
+          if (upgrade_data.xwsaddon != null) {
+            upgrade_data.xws += "-" + upgrade_data.xwsaddon;
+          } else {
+            upgrade_data.xws += "-" + upgrade_data.slot.canonicalize();
+          }
         }
-        this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
+      this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
       }
     }
 
@@ -316,7 +339,7 @@ export class PlayerListComponent implements OnInit {
             let newShip:Ship = {
               name: singleShipData.name,
               pilot: singlePilotData,
-              pilotskill: singlePilotData.skill,
+              pilotskill: (singlePilotData.skill != null) ? singlePilotData.skill : 0,
               points: (singlePilotData.points != null) ? singlePilotData.points : 0,
               hasLostHalfPoints: false,
               hull: (singlePilotData.ship_override != null) ? ((singlePilotData.ship_override.hull != null ? singlePilotData.ship_override.hull : ((singleShipData.hull != null) ? singleShipData.hull : 0))) : ((singleShipData.hull != null) ? singleShipData.hull : 0),
