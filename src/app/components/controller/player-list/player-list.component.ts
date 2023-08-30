@@ -70,15 +70,13 @@ export class PlayerListComponent implements OnInit {
         if (pilot_data.xws == null) {
           name_parse =  pilot_data.name.split("(")
 
-          if (name_parse[1] == null){
-            pilot_data.xws = pilot_data.name.canonicalize();
+          if (pilot_data.xwsaddon != null) {
+            pilot_data.xws = name_parse[0].canonicalize() + "-" + pilot_data.xwsaddon;
           } else {
-            pilot_data.xws = name_parse[0].canonicalize();
-
-            if (pilot_data.xwsaddon != null) {
-              pilot_data.xws += "-" + pilot_data.xwsaddon;
+            if (name_parse[1] == null){
+              pilot_data.xws = pilot_data.name.canonicalize();
             } else {
-              pilot_data.xws += "-" + pilot_data.ship.canonicalize();
+              pilot_data.xws = name_parse[0].canonicalize() + "-" + pilot_data.ship.canonicalize(); 
             }
           }
         }
@@ -99,18 +97,16 @@ export class PlayerListComponent implements OnInit {
       if (upgrade_data.skip == null) {
         name_parse =  upgrade_data.name.split("(")
 
-        if (name_parse[1] == null){
-          upgrade_data.xws = upgrade_data.name.canonicalize();
+        if (upgrade_data.xwsaddon != null) {
+          upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.xwsaddon;
         } else {
-          upgrade_data.xws = name_parse[0].canonicalize();
-
-          if (upgrade_data.xwsaddon != null) {
-            upgrade_data.xws += "-" + upgrade_data.xwsaddon;
+          if (name_parse[1] == null){
+            upgrade_data.xws = upgrade_data.name.canonicalize();
           } else {
-            upgrade_data.xws += "-" + upgrade_data.slot.canonicalize();
+            upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.slot.canonicalize(); 
           }
         }
-      this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
+    this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
       }
     }
 
