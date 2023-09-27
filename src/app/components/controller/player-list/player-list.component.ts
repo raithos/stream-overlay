@@ -95,15 +95,17 @@ export class PlayerListComponent implements OnInit {
     for (let _n = 0, _len1 = this.yasbData.upgradesById.length; _n < _len1; _n++) {
       upgrade_data = this.yasbData.upgradesById[_n];
       if (upgrade_data.skip == null) {
-        name_parse =  upgrade_data.name.split("(")
+        if (upgrade_data.xws == null) {
+          name_parse =  upgrade_data.name.split("(")
 
-        if (upgrade_data.xwsaddon != null) {
-          upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.xwsaddon;
-        } else {
-          if (name_parse[1] == null){
-            upgrade_data.xws = upgrade_data.name.canonicalize();
+          if (upgrade_data.xwsaddon != null) {
+            upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.xwsaddon;
           } else {
-            upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.slot.canonicalize(); 
+            if (name_parse[1] == null){
+              upgrade_data.xws = upgrade_data.name.canonicalize();
+            } else {
+              upgrade_data.xws = name_parse[0].canonicalize() + "-" + upgrade_data.slot.canonicalize(); 
+            }
           }
         }
     this.yasbupgradesxws[upgrade_data.xws] = upgrade_data;
