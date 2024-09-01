@@ -260,6 +260,11 @@ export class PlayerListComponent implements OnInit {
         var multipleShips = false;
         var currentShip = 0;
         var shipCheck = 0;
+        var xwarules = false;
+
+        if(x.ruleset == "XWA"){
+          xwarules = true;
+        }
 
         for (let pilot of x.pilots) {
           //caters for mismatch between external xws and xwing-data2
@@ -351,6 +356,11 @@ export class PlayerListComponent implements OnInit {
               crits: new Array<string>(),
               faction: faction,
               dial: singleShipData.maneuvers
+            }
+
+            //XWA exception
+            if(xwarules == true && singlePilotData.pointsbeta != null){
+              newShip.points = singlePilotData.pointsbeta;
             }
 
             //Natash Pup exception
@@ -478,7 +488,7 @@ export class PlayerListComponent implements OnInit {
       this.editYASB = false;
       this.buildShipList(xwsoutput);
       this.updateParent();
-      console.log(xwsoutput);
+      //console.log(xwsoutput);
     }
     catch (e) {
       this.xwsErrorDisplay = "Error Loading YASB Link";
