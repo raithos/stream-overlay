@@ -359,8 +359,8 @@ export class PlayerListComponent implements OnInit {
             }
 
             //XWA exception
-            if(xwarules == true && singlePilotData.pointsbeta != null){
-              newShip.points = singlePilotData.pointsbeta;
+            if(xwarules == true && singlePilotData.pointsxwa != null){
+              newShip.points = singlePilotData.pointsxwa;
             }
 
             //Natash Pup exception
