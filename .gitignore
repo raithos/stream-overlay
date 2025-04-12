@@ -48,3 +48,4 @@ Thumbs.db
 /src/environments/environment.prod.ts
 .firebaserc
 package-lock.json
+pushlive.sh
