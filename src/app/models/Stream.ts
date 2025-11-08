@@ -109,7 +109,8 @@ export interface Options{
     turnNumberMax?:number,
     showTurnTracker?:boolean,
     turnTrackerFontSize?:number,
-    scoringHalfHealthShips?:string;
+    scoringHalfHealthShips?:string,
+    scoringDeficitPoints?:string;
 }
 
 export interface Stream{

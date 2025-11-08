@@ -100,6 +100,13 @@
                                                 <option value="Zero">Zero Points</option>
                                             </select>
                                         </div>
+                                        <label for="scoringDeficitPointsSelect" class="col-sm-6 col-form-label">Deficit points are scored </label>
+                                        <div class="col-sm-6">
+                                            <select [(ngModel)]='stream.options.scoringDeficitPoints' (change)="updateStreamScoring()" name="scoringDeficitPointsSelect" class="form-control form-control-sm">
+                                                <option value="End">On full squad destruction</option>
+                                                <option value="Beginning">At the beginning of the game</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <hr>
                                     <h5>UI Options</h5>

@@ -204,7 +204,14 @@ export class PlayerListComponent implements OnInit {
         runningTotal += Math.floor(ship.points/2);
       }
     }
-    runningTotal += this.maxPoints - this.player.listPoints;
+    let pointsTotal = 0;
+    if (this.options.scoringDeficitPoints=="End"){
+      pointsTotal = this.listPoints();
+    }
+    else{
+      pointsTotal = this.maxPoints;
+    }
+    runningTotal += pointsTotal - this.player.listPoints;
     this.player.pointsLost = runningTotal;
     this.updateParent();
   }

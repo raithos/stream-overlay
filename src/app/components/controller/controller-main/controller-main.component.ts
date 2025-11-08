@@ -52,7 +52,8 @@ export class ControllerMainComponent implements OnInit {
       pointsFontSize:3,
       cardSize:3,
       shipPSLocation:"stats",
-      scoringHalfHealthShips:"Half"
+      scoringHalfHealthShips:"Half",
+      scoringDeficitPoints:"End"
 
     },
     timer: {
@@ -127,16 +128,16 @@ export class ControllerMainComponent implements OnInit {
   updateStreamScenarioName(){
     switch (this.stream.options.scenarioName) {
       case "Assault at the Satellite Array":
-        this.stream.options.scoringHalfHealthShips = "Zero";
+        this.stream.options.scoringHalfHealthShips = "Half";
         break;
       case "Chance Engagement":
         this.stream.options.scoringHalfHealthShips = "Half";
         break;
       case "Salvage Mission":
-        this.stream.options.scoringHalfHealthShips = "Zero";
+        this.stream.options.scoringHalfHealthShips = "Half";
         break;
       case "Scramble the Transmissions":
-        this.stream.options.scoringHalfHealthShips = "Zero";
+        this.stream.options.scoringHalfHealthShips = "Half";
         break;
       default:
         break;
