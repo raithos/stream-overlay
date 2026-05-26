@@ -37,8 +37,12 @@
     
     <h6 class="mr-2 text-center">
       Scenario Points: {{player.objectivePoints}} 
-      <button *ngIf="player.objectivePoints>0" (click)="decrementObjectivePoints()" class="btn btn-secondary btn-sm"><i class="fa fa-minus"></i></button>
-      <button (click)="incrementObjectivePoints()" class="btn btn-secondary btn-sm"><i class="fa fa-plus"></i></button>
+      <button *ngIf="player.objectivePoints>0" (click)="decrementObjectivePoints(4)" class="btn btn-secondary btn-sm">-4</button>
+      <button *ngIf="player.objectivePoints>0" (click)="decrementObjectivePoints(2)" class="btn btn-secondary btn-sm">-2</button>
+      <button *ngIf="player.objectivePoints>0" (click)="decrementObjectivePoints(1)" class="btn btn-secondary btn-sm">-1</button>
+      <button (click)="incrementObjectivePoints(1)" class="btn btn-secondary btn-sm">+1</button>
+      <button (click)="incrementObjectivePoints(2)" class="btn btn-secondary btn-sm">+2</button>
+      <button (click)="incrementObjectivePoints(4)" class="btn btn-secondary btn-sm">+4</button>
     </h6>
   </div>
   <div class="card-body"> 

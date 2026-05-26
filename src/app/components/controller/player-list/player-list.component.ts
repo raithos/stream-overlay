@@ -232,15 +232,19 @@ export class PlayerListComponent implements OnInit {
     }
   }
 
-  decrementObjectivePoints(){
-    if(this.player.objectivePoints > 0) {
-      this.player.objectivePoints--;
+  decrementObjectivePoints(inc:number){
+    if(this.player.objectivePoints > inc) {
+      this.player.objectivePoints = this.player.objectivePoints - inc;
+    }
+    else
+    {
+      this.player.objectivePoints = 0;
     }
     this.updateParent();
   }
 
-  incrementObjectivePoints(){
-    this.player.objectivePoints++;
+  incrementObjectivePoints(inc:number){
+    this.player.objectivePoints = this.player.objectivePoints + inc;
     this.updateParent();
   }
 
